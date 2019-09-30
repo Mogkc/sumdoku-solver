@@ -10,8 +10,8 @@ describe("test script", () => {
 
 describe("SumdokuBoard", () => {
     const input = [
-        1, 2, 3, 
-        4, 5, 6, 
+        1, 2, 3,
+        4, 5, 6,
         7, 8, 9
     ];
     describe("constructor", () => {
@@ -68,10 +68,44 @@ describe("SumdokuBoard", () => {
         });
         it("should be iterable by column", () => {
             let place = 2;
-            board.col(1).forEach(row => { 
+            board.col(1).forEach(row => {
                 assert.equal(row, place);
                 place = place + board.size;
             });
+        });
+        it("should reject iteration over nonexistant rows or columns", () => {
+            // Row
+            try {
+                board.row(-1);
+                assert.isTrue(false, "Didn't throw InvalidInputError");
+            } catch (e) {
+                if (e instanceof InvalidInputError)
+                    try {
+                        board.row(4);
+                        assert.isTrue(false, "Didn't throw InvalidInputError");
+                    } catch (e) {
+                        if (e instanceof InvalidInputError)
+                            assert.isTrue(true);
+                        else throw e;
+                    }
+                else throw e;
+            }
+            // Column
+            try {
+                board.col(-1);
+                assert.isTrue(false, "Didn't throw InvalidInputError");
+            } catch (e) {
+                if (e instanceof InvalidInputError)
+                    try {
+                        board.col(4);
+                        assert.isTrue(false, "Didn't throw InvalidInputError");
+                    } catch (e) {
+                        if (e instanceof InvalidInputError)
+                            assert.isTrue(true);
+                        else throw e;
+                    }
+                else throw e;
+            }
         });
     });
 });
