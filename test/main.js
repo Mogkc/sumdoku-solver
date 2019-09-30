@@ -59,6 +59,7 @@ describe("SumdokuBoard", () => {
             }
         });
     });
+    /*
     describe("set", () => {
         const board = new SumdokuBoard(oneThroughNine.map(e => e));
         const setTo = 9;
@@ -87,6 +88,7 @@ describe("SumdokuBoard", () => {
             }
         });
     });
+    */
     describe("iteration", () => {
         const board = new SumdokuBoard(oneThroughNine);
         it("should be iterable by row", () => {
@@ -149,6 +151,8 @@ describe("SumdokuBoard", () => {
             // Arbitrarily chosen col
             board.col(8).forEach(row => {
                 assert.deepEqual(oneThroughNine, row);
-            });});
+            });
+        });
     });
 });
+

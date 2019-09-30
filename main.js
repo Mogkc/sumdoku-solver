@@ -18,9 +18,11 @@ class SumdokuBoard {
     get(row, col) {
         return this.board[this._flatten(row, col)];
     }
+    /*
     set(row, col, val) {
         this.board[this._flatten(row, col)] = val;
     }
+    */
     row(row) {
         if(this._notInSize(row))
             throw new InvalidInputError("Offboard row request");
