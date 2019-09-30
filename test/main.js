@@ -59,6 +59,34 @@ describe("SumdokuBoard", () => {
             }
         });
     });
+    describe("set", () => {
+        const board = new SumdokuBoard(input.map(e => e));
+        const setTo = 9;
+        it("should set contents by row and column", () => {
+            board.set(0, 0, setTo);
+            assert.equal(setTo, board.get(0, 0));
+        });
+        it("should reject attempts to grab off-board information", () => {
+            // Invalid row, negative
+            try {
+                board.set(-1, 0, setTo);
+                assert.isTrue(false, "Didn't throw InvalidInputError");
+            } catch (e) {
+                if (e instanceof InvalidInputError)
+                    assert.isTrue(true);
+                else throw e;
+            }
+            // Invalid col, between size and length of array
+            try {
+                board.set(0, 4, setTo);
+                assert.isTrue(false, "Didn't throw InvalidInputError");
+            } catch (e) {
+                if (e instanceof InvalidInputError)
+                    assert.isTrue(true);
+                else throw e;
+            }
+        });
+    });
     describe("iteration", () => {
         const board = new SumdokuBoard(input);
         it("should be iterable by row", () => {
