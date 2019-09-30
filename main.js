@@ -8,6 +8,8 @@ class SumdokuBoard {
             throw new InvalidInputError("Not a square board");
     }
     get(row, col) {
+        if(row < 0 || col < 0 || this.size-1 < row || this.size-1 < col)
+            throw new InvalidInputError("Offboard get request");
         return this.board[(this.size * row) + col];
     }
     /* On hold until get(row, col) created

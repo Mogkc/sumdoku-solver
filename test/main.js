@@ -20,7 +20,7 @@ describe("SumdokuBoard", () => {
         it("should reject non-square boards", () => {
             try {
                 new SumdokuBoard(new Array(2));
-                assert.isTrue(false);
+                assert.isTrue(false, "Didn't throw InvalidInputError");
             } catch (e) {
                 if (e instanceof InvalidInputError)
                     assert.isTrue(true);
@@ -29,10 +29,30 @@ describe("SumdokuBoard", () => {
         });
     });
     describe("get", () => {
+        const board = new SumdokuBoard(input);
         it("should get contents by row and column", () => {
-            const board = new SumdokuBoard(input)
             assert.equal(1, board.get(0, 0));
             assert.equal(9, board.get(2, 2));
+        });
+        it("should reject attempts to grab off-board information", () => {
+            // Invalid row, negative
+            try {
+                board.get(-1, 0);
+                assert.isTrue(false, "Didn't throw InvalidInputError");
+            } catch (e) {
+                if (e instanceof InvalidInputError)
+                    assert.isTrue(true);
+                else throw e;
+            }
+            // Invalid col, between size and length of array
+            try {
+                board.get(0, 4);
+                assert.isTrue(false, "Didn't throw InvalidInputError");
+            } catch (e) {
+                if (e instanceof InvalidInputError)
+                    assert.isTrue(true);
+                else throw e;
+            }
         });
         /* Put on hold as it builds upon other things not yet built
         it("should be iterable by row", () => {
