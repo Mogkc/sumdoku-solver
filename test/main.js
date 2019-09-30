@@ -137,16 +137,18 @@ describe("SumdokuBoard", () => {
         });
     });
     describe("newBoard", () => {
-        // A new board is a 9x9 with all possibilities open
         const board = SumdokuBoard.newBoard();
-        assert.equal(9, board.size);
-        // Arbitrarily chosen row
-        board.row(6).forEach(col => {
-            assert.deepEqual(oneThroughNine, col);
+        it("should be a 9x9", () => {
+            assert.equal(9, board.size);
         });
-        // Arbitrarily chosen col
-        board.col(8).forEach(row => {
-            assert.deepEqual(oneThroughNine, row);
-        });
+        it("should hold all possibilities in each location", () => {
+            // Arbitrarily chosen row
+            board.row(6).forEach(col => {
+                assert.deepEqual(oneThroughNine, col);
+            });
+            // Arbitrarily chosen col
+            board.col(8).forEach(row => {
+                assert.deepEqual(oneThroughNine, row);
+            });});
     });
 });
