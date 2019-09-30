@@ -66,5 +66,12 @@ describe("SumdokuBoard", () => {
             board.row(1).forEach(col => assert.equal(col, place++));
             board.row(2).forEach(col => assert.equal(col, place++));
         });
+        it("should be iterable by column", () => {
+            let place = 2;
+            board.col(1).forEach(row => { 
+                assert.equal(row, place);
+                place = place + board.size;
+            });
+        });
     });
 });

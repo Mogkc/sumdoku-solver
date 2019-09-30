@@ -15,6 +15,13 @@ class SumdokuBoard {
     row(row) {
         return this.board.slice(row * this.size, (row + 1) * this.size);
     }
+    col(col) {
+        const column = [];
+        for(let i = 0; i < this.size; i++) {
+            column.push(this.board[i * this.size + col]);
+        }
+        return column;
+    }
 }
 
 module.exports['SumdokuBoard'] = SumdokuBoard;
