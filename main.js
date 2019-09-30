@@ -37,5 +37,16 @@ class SumdokuBoard {
     }
 }
 
+SumdokuBoard.newBoard = function () {
+    const allPossible = [];
+    for(let row = 1; row <= 9; row++) {
+        for(let col = 1; col <= 9; col++) {
+            let possibilities = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            allPossible.push(possibilities);
+        }
+    }
+    return new SumdokuBoard(allPossible);
+}
+
 module.exports['SumdokuBoard'] = SumdokuBoard;
 module.exports['InvalidInputError'] = InvalidInputError;

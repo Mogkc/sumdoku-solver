@@ -9,17 +9,17 @@ describe("test script", () => {
 });
 
 describe("SumdokuBoard", () => {
-    const input = [
+    const oneThroughNine = [
         1, 2, 3,
         4, 5, 6,
         7, 8, 9
     ];
     describe("constructor", () => {
         it("should accept an array", () => {
-            assert.equal(input, new SumdokuBoard(input).board);
+            assert.equal(oneThroughNine, new SumdokuBoard(oneThroughNine).board);
         });
         it("should have a size equal to the square root of its array", () => {
-            assert.equal(Math.sqrt(input.length), new SumdokuBoard(input).size);
+            assert.equal(Math.sqrt(oneThroughNine.length), new SumdokuBoard(oneThroughNine).size);
         });
         it("should reject non-square boards", () => {
             try {
@@ -33,7 +33,7 @@ describe("SumdokuBoard", () => {
         });
     });
     describe("get", () => {
-        const board = new SumdokuBoard(input);
+        const board = new SumdokuBoard(oneThroughNine);
         it("should get contents by row and column", () => {
             assert.equal(1, board.get(0, 0));
             assert.equal(9, board.get(2, 2));
@@ -60,7 +60,7 @@ describe("SumdokuBoard", () => {
         });
     });
     describe("set", () => {
-        const board = new SumdokuBoard(input.map(e => e));
+        const board = new SumdokuBoard(oneThroughNine.map(e => e));
         const setTo = 9;
         it("should set contents by row and column", () => {
             board.set(0, 0, setTo);
@@ -88,7 +88,7 @@ describe("SumdokuBoard", () => {
         });
     });
     describe("iteration", () => {
-        const board = new SumdokuBoard(input);
+        const board = new SumdokuBoard(oneThroughNine);
         it("should be iterable by row", () => {
             let place = 4;
             board.row(1).forEach(col => assert.equal(col, place++));
@@ -135,5 +135,20 @@ describe("SumdokuBoard", () => {
                 else throw e;
             }
         });
+    });
+    describe("newBoard", () => {
+        // A new board is a 9x9 with all possibilities open
+        const board = SumdokuBoard.newBoard();
+        assert.equal(9, board.size);
+        /*
+        // Arbitrarily chosen row
+        board.row(6).forEach(col => {
+            assert.deepEqual(oneThroughNine, col);
+        });
+        // Arbitrarily chosen col
+        board.col(9).forEach(row => {
+            assert.deepEqual(oneThroughNine, row);
+        });
+        */
     });
 });
