@@ -5,4 +5,4 @@ This code solves sudoku puzzles, both normal ones that give the positions of num
 - Doesn't repeat a digit
 ### Why I'm making it
 I was inspired to make this while reading *Eloquent Javascript*, and this project is a chance to practice concepts I learned in the book and try out TDD.
-**Check out the code**, I'm pretty proud!
+[Check out the commit history](https://github.com/Mogkc/sumduko-solver/commits/master), I'm pretty proud of my process!
