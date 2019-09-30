@@ -9,7 +9,11 @@ describe("test script", () => {
 });
 
 describe("SumdokuBoard", () => {
-    const input = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const input = [
+        1, 2, 3, 
+        4, 5, 6, 
+        7, 8, 9
+    ];
     describe("constructor", () => {
         it("should accept an array", () => {
             assert.equal(input, new SumdokuBoard(input).board);
@@ -54,10 +58,13 @@ describe("SumdokuBoard", () => {
                 else throw e;
             }
         });
-        /* Put on hold as it builds upon other things not yet built
+    });
+    describe("iteration", () => {
+        const board = new SumdokuBoard(input);
         it("should be iterable by row", () => {
-            const iterator = new SumdokuBoard(input).row(1)[Symbol.iterator]();
+            let place = 4;
+            board.row(1).forEach(col => assert.equal(col, place++));
+            board.row(2).forEach(col => assert.equal(col, place++));
         });
-        */
     });
 });

@@ -12,31 +12,10 @@ class SumdokuBoard {
             throw new InvalidInputError("Offboard get request");
         return this.board[(this.size * row) + col];
     }
-    /* On hold until get(row, col) created
     row(row) {
-        return {
-            [Symbol.iterator]() {
-                return new RowIterator(this, row);
-            }
-        }
-    }
-    */
-}
-
-/*
-class RowIterator {
-    constructor(SumdokuBoard, row) {
-        this.row = row;
-        this.index = 0;
-        this.board = SumdokuBoard;
-    }
-    next() {
-        if(this.index == this.board.size)
-            return { done: true }
-        let value = this.board.get(row, index); // board.get not created yet!
+        return this.board.slice(row * this.size, (row + 1) * this.size);
     }
 }
-*/
 
 module.exports['SumdokuBoard'] = SumdokuBoard;
 module.exports['InvalidInputError'] = InvalidInputError;
