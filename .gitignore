@@ -1,0 +1,4 @@
+.DS_Storenode_modules
+.env
+build
+node_modules
