@@ -28,6 +28,7 @@ module.exports = function (assert) {
             it("should optionally accept array of numbers to include", () => {
                 const include = [7];
                 assert.equal(include, new Group(locations, undefined, include).includes);
+                assert.equal([].length, new Group(locations).includes.length);
                 // Using less input validation
             });
             it("should optionally accept array of numbers to exclude", () => {
@@ -36,6 +37,7 @@ module.exports = function (assert) {
                     exclude,
                     new Group(locations, undefined, undefined, exclude).excludes
                 );
+                assert.equal([].length, new Group(locations).excludes.length);
                 // Using less input validation
             });
             it("should reject overlap between includes and excludes", () => {
@@ -48,9 +50,18 @@ module.exports = function (assert) {
                         assert.isTrue(true);
                     } else throw e;
                 }
-                // Using less input validation
             });
-            
+            it("should reject sums less than the sum of included numbers", () => {
+                const sum = 4, include = [2, 3];
+                try {
+                    new Group(locations, sum, include);
+                    assert.isTrue(false, "Didn't reject invalid input");
+                } catch (e) {
+                    if (e instanceof InvalidInputError) {
+                        assert.isTrue(true);
+                    } else throw e;
+                }
+            });
         });
     });
 }
