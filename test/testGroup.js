@@ -21,9 +21,14 @@ module.exports = function (assert) {
                     } else throw e;
                 }
             });
-            it("should should optionally accept sum", () => {
+            it("should optionally accept sum", () => {
                 const sum = 7;
                 assert.equal(sum, new Group(locations, sum).sum);
+            });
+            it("should optionally accept array of numbers to include", () => {
+                const include = [7];
+                assert.equal(include, new Group(locations, undefined, include).includes);
+                // Using less input validation
             });
         });
     });
