@@ -21,6 +21,10 @@ module.exports = function (assert) {
                     } else throw e;
                 }
             });
+            it("should should optionally accept sum", () => {
+                const sum = 7;
+                assert.equal(sum, new Group(locations, sum).sum);
+            });
         });
     });
 }

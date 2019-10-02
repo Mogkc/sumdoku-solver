@@ -12,9 +12,10 @@ function isLocations(input) {
 }
 
 class Group {
-    constructor(locations) {
-        if(!isLocations(locations)) throw new InvalidInputError();
+    constructor(locations, sum) {
+        if(!isLocations(locations)) throw new InvalidInputError("Requires Locations");
         this.locations = locations;
+        this.sum = Number.isInteger(sum) ? sum : undefined;
     }
 }
 
