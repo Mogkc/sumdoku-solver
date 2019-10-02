@@ -34,6 +34,11 @@ class Group {
         this.excludes = exclude ? exclude : [];
         checkForContradictions(this.includes, this.excludes, sum);
     }
+    [Symbol.iterator] = function* () {
+        for(let point of this.locations) {
+            yield point;
+        }
+    }
 }
 
 module.exports["Group"] = Group;

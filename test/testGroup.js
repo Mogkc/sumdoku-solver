@@ -63,5 +63,14 @@ module.exports = function (assert) {
                 }
             });
         });
+        describe("iteration", () => {
+            it("should iterate over locations", () => {
+                const l1 = [0, 0], l2 = [1, 1], l3 = [2, 2],
+                    iterator = new Group([l1, l2, l3])[Symbol.iterator]();
+                assert.equal(l1, iterator.next().value);
+                assert.equal(l2, iterator.next().value);
+                assert.equal(l3, iterator.next().value);
+            });
+        });
     });
 }
