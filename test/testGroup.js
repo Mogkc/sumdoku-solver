@@ -38,6 +38,19 @@ module.exports = function (assert) {
                 );
                 // Using less input validation
             });
+            it("should reject overlap between includes and excludes", () => {
+                const include = [4, 5], exclude = [5];
+                try {
+                    new Group(locations, undefined, include, exclude);
+                    assert.isTrue(false, "Didn't reject invalid input");
+                } catch (e) {
+                    if (e instanceof InvalidInputError) {
+                        assert.isTrue(true);
+                    } else throw e;
+                }
+                // Using less input validation
+            });
+            
         });
     });
 }

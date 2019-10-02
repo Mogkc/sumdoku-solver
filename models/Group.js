@@ -18,7 +18,13 @@ class Group {
         if(Number.isInteger(sum))
             this.sum = sum;
         this.includes = include ? include : [];
-        this.excludes = exclude;
+        this.excludes = exclude ? exclude : [];
+        for(let required of this.includes) {
+            for(let notAllowed of this.excludes) {
+                if(required === notAllowed)
+                    throw new InvalidInputError("A number is both required and not allowed");
+            }
+        }
     }
 }
 
