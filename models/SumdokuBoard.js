@@ -1,4 +1,5 @@
 const InvalidInputError = require('./InvalidInputError');
+const Group = require('./Group').Group;
 
 class SumdokuBoard {
     constructor(array) {
@@ -6,6 +7,19 @@ class SumdokuBoard {
         this.size = Math.sqrt(this.board.length);
         if (!Number.isInteger(this.size))
             throw new InvalidInputError("Not a square board");
+        // Set up the basic groups all sudoku games share
+        this.groups = [];
+        this.possibilities = [];
+        for(let register = 0; register < this.size; register++) {
+            this.possibilities.push(register);
+            const row = [], column = [];
+            for(let  range = 0; range < this.size; range++) {
+                row.push([register, range]);
+                column.push([range, register]);
+            }
+            this.groups.push(new Group(row, 45, this.possibilities));
+            this.groups.push(new Group(column, 45, this.possibilities));
+        }
     }
     _notInSize(val) {
         return val < 0 || this.size - 1 < val;
@@ -26,16 +40,12 @@ class SumdokuBoard {
     row(row) {
         if (this._notInSize(row))
             throw new InvalidInputError("Offboard row request");
-        return this.board.slice(row * this.size, (row + 1) * this.size);
+        return this.groups[2 * row];
     }
     col(col) {
         if (this._notInSize(col))
             throw new InvalidInputError("Offboard col request");
-        const column = [];
-        for (let i = 0; i < this.size; i++) {
-            column.push(this.board[i * this.size + col]);
-        }
-        return column;
+        return this.groups[1 + 2 * col];
     }
 }
 

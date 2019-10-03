@@ -90,15 +90,18 @@ module.exports = assert => {
             const board = new SumdokuBoard(oneThroughNine);
             it("should be iterable by row", () => {
                 let place = 4;
-                board.row(1).forEach(col => assert.equal(col, place++));
-                board.row(2).forEach(col => assert.equal(col, place++));
+                for(let [x, y] of board.row(1)) {
+                    assert.equal(board.get(x, y), place++);
+                }
+                for(let [x, y] of board.row(2)) {
+                    assert.equal(board.get(x, y), place++);
+                }
             });
             it("should be iterable by column", () => {
-                let place = 2;
-                board.col(1).forEach(row => {
-                    assert.equal(row, place);
-                    place = place + board.size;
-                });
+                let place = 2 - board.size; // So the first check will be against 2
+                for(let [x, y] of board.col(1)) {
+                    assert.equal(board.get(x, y), place = place + board.size);
+                }
             });
             it("should reject iteration over nonexistant rows or columns", () => {
                 // Row
@@ -142,13 +145,13 @@ module.exports = assert => {
             });
             it("should hold all possibilities in each location", () => {
                 // Arbitrarily chosen row
-                board.row(6).forEach(col => {
-                    assert.deepEqual(oneThroughNine, col);
-                });
+                for(let [x, y] of board.row(6)) {
+                    assert.deepEqual(oneThroughNine, board.get(x, y));
+                }
                 // Arbitrarily chosen col
-                board.col(8).forEach(row => {
-                    assert.deepEqual(oneThroughNine, row);
-                });
+                for(let [x, y] of board.col(8)) {
+                    assert.deepEqual(oneThroughNine, board.get(x, y));
+                }
             });
         });
     });
