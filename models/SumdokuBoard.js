@@ -17,8 +17,8 @@ class SumdokuBoard {
                 row.push([register, range]);
                 column.push([range, register]);
             }
-            this.groups.push(new Group(row, 45, this.possibilities));
-            this.groups.push(new Group(column, 45, this.possibilities));
+            this.groups.push(new Group(row, 45, this.possibilities, undefined, true));
+            this.groups.push(new Group(column, 45, this.possibilities, undefined, true));
         }
     }
     _notInSize(val) {

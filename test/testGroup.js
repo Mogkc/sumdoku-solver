@@ -40,6 +40,11 @@ module.exports = function (assert) {
                 assert.equal([].length, new Group(locations).excludes.length);
                 // Using less input validation
             });
+            it("should optionally accept strict boolean", () => {
+                assert.equal(false, new Group(locations).strict);
+                const u = undefined;
+                assert.isTrue(new Group(locations, u, u, u, true).strict);
+            });
             it("should reject overlap between includes and excludes", () => {
                 const include = [4, 5], exclude = [5];
                 try {

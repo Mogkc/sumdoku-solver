@@ -25,13 +25,14 @@ function checkForContradictions(include, exclude, sum) {
 }
 
 class Group {
-    constructor(locations, sum, include, exclude) {
+    constructor(locations, sum, include=[], exclude=[], strict=false) {
         if (!isLocations(locations)) throw new InvalidInputError("Requires Locations");
         this.locations = locations;
         if (Number.isInteger(sum))
             this.sum = sum;
-        this.includes = include ? include : [];
-        this.excludes = exclude ? exclude : [];
+        this.includes = include;
+        this.excludes = exclude;
+        this.strict = strict;
         checkForContradictions(this.includes, this.excludes, sum);
     }
     [Symbol.iterator] = function* () {
