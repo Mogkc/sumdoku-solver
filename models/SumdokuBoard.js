@@ -3,7 +3,7 @@ const Group = require('./Group').Group;
 
 class SumdokuBoard {
     constructor(array) {
-        this.board = array;
+        this.board = array.map(e => e);
         this.size = Math.sqrt(this.board.length);
         if (!Number.isInteger(this.size))
             throw new InvalidInputError("Not a square board");
@@ -50,10 +50,9 @@ class SumdokuBoard {
 }
 
 SumdokuBoard.newBoard = function () {
-    const allPossible = [];
+    const allPossible = [], possibilities = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     for (let row = 1; row <= 9; row++) {
         for (let col = 1; col <= 9; col++) {
-            let possibilities = [1, 2, 3, 4, 5, 6, 7, 8, 9];
             allPossible.push(possibilities);
         }
     }

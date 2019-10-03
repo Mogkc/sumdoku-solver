@@ -10,7 +10,7 @@ module.exports = assert => {
         ];
         describe("constructor", () => {
             it("should accept an array", () => {
-                assert.equal(oneThroughNine, new SumdokuBoard(oneThroughNine).board);
+                assert.deepEqual(oneThroughNine, new SumdokuBoard(oneThroughNine).board);
             });
             it("should have a size equal to the square root of its array", () => {
                 assert.equal(Math.sqrt(oneThroughNine.length), new SumdokuBoard(oneThroughNine).size);

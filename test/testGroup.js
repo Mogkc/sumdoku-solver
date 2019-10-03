@@ -11,7 +11,7 @@ module.exports = function (assert) {
                 [1, 1]
             ];
             it("should always contain locations", () => {
-                assert.equal(locations, new Group(locations).locations);
+                assert.deepEqual(locations, new Group(locations).locations);
                 try {
                     new Group();
                     assert.isTrue(false, "Didn't reject invalid input");
@@ -27,13 +27,13 @@ module.exports = function (assert) {
             });
             it("should optionally accept array of numbers to include", () => {
                 const include = [7];
-                assert.equal(include, new Group(locations, undefined, include).includes);
-                assert.equal([].length, new Group(locations).includes.length);
+                assert.deepEqual(include, new Group(locations, undefined, include).includes);
+                assert.deepEqual([].length, new Group(locations).includes.length);
                 // Using less input validation
             });
             it("should optionally accept array of numbers to exclude", () => {
                 const exclude = [5];
-                assert.equal(
+                assert.deepEqual(
                     exclude,
                     new Group(locations, undefined, undefined, exclude).excludes
                 );
@@ -72,9 +72,9 @@ module.exports = function (assert) {
             it("should iterate over locations", () => {
                 const l1 = [0, 0], l2 = [1, 1], l3 = [2, 2],
                     iterator = new Group([l1, l2, l3])[Symbol.iterator]();
-                assert.equal(l1, iterator.next().value);
-                assert.equal(l2, iterator.next().value);
-                assert.equal(l3, iterator.next().value);
+                assert.deepEqual(l1, iterator.next().value);
+                assert.deepEqual(l2, iterator.next().value);
+                assert.deepEqual(l3, iterator.next().value);
             });
         });
     });

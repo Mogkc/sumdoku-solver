@@ -27,11 +27,11 @@ function checkForContradictions(include, exclude, sum) {
 class Group {
     constructor(locations, sum, include=[], exclude=[], strict=false) {
         if (!isLocations(locations)) throw new InvalidInputError("Requires Locations");
-        this.locations = locations;
+        this.locations = locations.map(e => e);
         if (Number.isInteger(sum))
             this.sum = sum;
-        this.includes = include;
-        this.excludes = exclude;
+        this.includes = include.map(e => e);
+        this.excludes = exclude.map(e => e);
         this.strict = strict;
         checkForContradictions(this.includes, this.excludes, sum);
     }
