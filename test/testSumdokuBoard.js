@@ -153,6 +153,27 @@ module.exports = assert => {
                     assert.deepEqual(oneThroughNine, board.get(x, y));
                 }
             });
+            it("should have strict groups for each 3x3", () => {
+                const threeByThree = [
+                    [0,0], [0,1], [0,2],
+                    [1,0], [1,1], [1,2],
+                    [2,0], [2,1], [2,2]
+                ];
+                // 9 row groups, 9 column groups, 9 box groups
+                assert.equal(9*3, board.groups.length);
+                // Index of +rows+columns+0
+                const firstGroup = board.groups[9 + 9];
+                let index = 0;
+                for(let location of firstGroup) {
+                    try {
+                        assert.deepEqual(threeByThree[index], location);
+                        index++;
+                    } catch (e) {
+                        console.log(firstGroup);
+                        throw e;
+                    }
+                }
+            });
         });
     });
 }

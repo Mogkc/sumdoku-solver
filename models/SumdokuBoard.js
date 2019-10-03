@@ -56,7 +56,23 @@ SumdokuBoard.newBoard = function () {
             allPossible.push(possibilities);
         }
     }
-    return new SumdokuBoard(allPossible);
+    const blankBoard = new SumdokuBoard(allPossible);
+    // Add the 3x3 box groupings
+    const locations = new Array(9);
+    
+    // By moving the upperleft corner
+    for(let x = 0; x < 9; x += 3) {
+        for(let y = 0; y < 9; y += 3) {
+            // and filling in below and right
+            for(let row = 0; row < 3; row++) {
+                for(let col = 0; col < 3; col++) {
+                    locations[row*3 + col] = [x+row, y+col];
+                }
+            }
+            blankBoard.groups.push(new Group(locations, undefined, possibilities, undefined, true));
+        }
+    }
+    return blankBoard;
 }
 
 module.exports = SumdokuBoard;
