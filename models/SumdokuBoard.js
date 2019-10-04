@@ -33,7 +33,7 @@ class SumdokuBoard {
             throw new InvalidInputError("Offboard get/set request");
         else return (this.size * row) + col;
     }
-    get(row, col) {
+    get([row, col]) {
         return this.board[this._flatten(row, col)];
     }
     set(...location_valuePairs) {

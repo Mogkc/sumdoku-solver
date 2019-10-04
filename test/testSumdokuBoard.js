@@ -32,14 +32,14 @@ module.exports = assert => {
         });
         describe("get", () => {
             const board = new SumdokuBoard(oneThroughNine);
-            it("should get contents by row and column", () => {
-                assert.equal(1, board.get(0, 0));
-                assert.equal(9, board.get(2, 2));
+            it("should get contents by location [row, column]", () => {
+                assert.equal(1, board.get([0, 0]));
+                assert.equal(9, board.get([2, 2]));
             });
             it("should reject attempts to grab off-board information", () => {
                 // Invalid row, negative
                 try {
-                    board.get(-1, 0);
+                    board.get([-1, 0]);
                     assert.isTrue(false, "Didn't throw InvalidInputError");
                 } catch (e) {
                     if (e instanceof InvalidInputError)
@@ -48,7 +48,7 @@ module.exports = assert => {
                 }
                 // Invalid col, between size and length of array
                 try {
-                    board.get(0, 4);
+                    board.get([0, 4]);
                     assert.isTrue(false, "Didn't throw InvalidInputError");
                 } catch (e) {
                     if (e instanceof InvalidInputError)
@@ -61,16 +61,16 @@ module.exports = assert => {
             const board = new SumdokuBoard(oneThroughNine);
             const setTo = 9;
             it("should return a new board without changing the original", () => {
-                assert.equal(board.get(2, 1), 8);
+                assert.equal(board.get([2, 1]), 8);
                 const afterSet = board.set([2, 1], setTo);
                 assert.isTrue(afterSet instanceof SumdokuBoard, "Didn't return a SumdokuBoard");
                 assert.isTrue(board != afterSet);
-                assert.equal(board.get(2, 1), 8);
+                assert.equal(board.get([2, 1]), 8);
             });
             /*
             it("should take one or more location-value pairs", () => {
                 board.set([0, 0], setTo);
-                assert.equal(setTo, board.get(0, 0));
+                assert.equal(setTo, board.get([0, 0]));
                 // Or more
                 board.set([0, 1], setTo, [1, 0], setTo)
             });
@@ -101,16 +101,16 @@ module.exports = assert => {
             it("should be iterable by row", () => {
                 let place = 4;
                 for(let [x, y] of board.row(1)) {
-                    assert.equal(board.get(x, y), place++);
+                    assert.equal(board.get([x, y]), place++);
                 }
                 for(let [x, y] of board.row(2)) {
-                    assert.equal(board.get(x, y), place++);
+                    assert.equal(board.get([x, y]), place++);
                 }
             });
             it("should be iterable by column", () => {
                 let place = 2 - board.size; // So the first check will be against 2
                 for(let [x, y] of board.col(1)) {
-                    assert.equal(board.get(x, y), place = place + board.size);
+                    assert.equal(board.get([x, y]), place = place + board.size);
                 }
             });
             it("should reject iteration over nonexistant rows or columns", () => {
@@ -156,11 +156,11 @@ module.exports = assert => {
             it("should hold all possibilities in each location", () => {
                 // Arbitrarily chosen row
                 for(let [x, y] of board.row(6)) {
-                    assert.deepEqual(oneThroughNine, board.get(x, y));
+                    assert.deepEqual(oneThroughNine, board.get([x, y]));
                 }
                 // Arbitrarily chosen col
                 for(let [x, y] of board.col(8)) {
-                    assert.deepEqual(oneThroughNine, board.get(x, y));
+                    assert.deepEqual(oneThroughNine, board.get([x, y]));
                 }
             });
             it("should have strict groups for each 3x3", () => {
