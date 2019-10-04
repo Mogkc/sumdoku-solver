@@ -57,39 +57,45 @@ module.exports = assert => {
                 }
             });
         });
-        // Commented out set, in obj so my IDE will collapse it
-        {
+        describe("set", () => {
+            const board = new SumdokuBoard(oneThroughNine);
+            const setTo = 9;
+            it("should return a new board without changing the original", () => {
+                assert.equal(board.get(2, 1), 8);
+                const afterSet = board.set([2, 1], setTo);
+                assert.isTrue(afterSet instanceof SumdokuBoard, "Didn't return a SumdokuBoard");
+                assert.isTrue(board != afterSet);
+                assert.equal(board.get(2, 1), 8);
+            });
             /*
-            describe("set", () => {
-                const board = new SumdokuBoard(oneThroughNine.map(e => e));
-                const setTo = 9;
-                it("should set contents by row and column", () => {
-                    board.set(0, 0, setTo);
-                    assert.equal(setTo, board.get(0, 0));
-                });
-                it("should reject attempts to grab off-board information", () => {
-                    // Invalid row, negative
-                    try {
-                        board.set(-1, 0, setTo);
-                        assert.isTrue(false, "Didn't throw InvalidInputError");
-                    } catch (e) {
-                        if (e instanceof InvalidInputError)
-                            assert.isTrue(true);
-                        else throw e;
-                    }
-                    // Invalid col, between size and length of array
-                    try {
-                        board.set(0, 4, setTo);
-                        assert.isTrue(false, "Didn't throw InvalidInputError");
-                    } catch (e) {
-                        if (e instanceof InvalidInputError)
-                            assert.isTrue(true);
-                        else throw e;
-                    }
-                });
+            it("should take one or more location-value pairs", () => {
+                board.set([0, 0], setTo);
+                assert.equal(setTo, board.get(0, 0));
+                // Or more
+                board.set([0, 1], setTo, [1, 0], setTo)
+            });
+            it("should reject attempts to grab off-board information", () => {
+                // Invalid row, negative
+                try {
+                    board.set([-1, 0], setTo);
+                    assert.isTrue(false, "Didn't throw InvalidInputError");
+                } catch (e) {
+                    if (e instanceof InvalidInputError)
+                        assert.isTrue(true);
+                    else throw e;
+                }
+                // Invalid col, between size and length of array
+                try {
+                    board.set([0, 4], setTo);
+                    assert.isTrue(false, "Didn't throw InvalidInputError");
+                } catch (e) {
+                    if (e instanceof InvalidInputError)
+                        assert.isTrue(true);
+                    else throw e;
+                }
             });
             */
-        }
+        });
         describe("iteration", () => {
             const board = new SumdokuBoard(oneThroughNine);
             it("should be iterable by row", () => {

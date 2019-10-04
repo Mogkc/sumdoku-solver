@@ -26,7 +26,7 @@ class SumdokuBoard {
         }
     }
     _notInSize(val) {
-        return val < 0 || this.size - 1 < val;
+        return val < 0 || this.size < val;
     }
     _flatten(row, col) {
         if (this._notInSize(row) || this._notInSize(col))
@@ -36,11 +36,9 @@ class SumdokuBoard {
     get(row, col) {
         return this.board[this._flatten(row, col)];
     }
-    /*
-    set(row, col, val) {
-        this.board[this._flatten(row, col)] = val;
+    set(...location_valuePairs) {
+        return new SumdokuBoard(this.board, this.groups);
     }
-    */
     row(row) {
         if (this._notInSize(row))
             throw new InvalidInputError("Offboard row request");
