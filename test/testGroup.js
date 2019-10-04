@@ -12,14 +12,7 @@ module.exports = function (assert) {
             ];
             it("should always contain locations", () => {
                 assert.deepEqual(locations, new Group(locations).locations);
-                try {
-                    new Group();
-                    assert.isTrue(false, "Didn't reject invalid input");
-                } catch (e) {
-                    if (e instanceof InvalidInputError) {
-                        assert.isTrue(true);
-                    } else throw e;
-                }
+                assert.throws(() => new Group(), InvalidInputError);
             });
             it("should optionally accept sum", () => {
                 const sum = 7;
@@ -47,25 +40,14 @@ module.exports = function (assert) {
             });
             it("should reject overlap between includes and excludes", () => {
                 const include = [4, 5], exclude = [5];
-                try {
-                    new Group(locations, undefined, include, exclude);
-                    assert.isTrue(false, "Didn't reject invalid input");
-                } catch (e) {
-                    if (e instanceof InvalidInputError) {
-                        assert.isTrue(true);
-                    } else throw e;
-                }
+                assert.throws(
+                    () => new Group(locations, undefined, include, exclude),
+                    InvalidInputError
+                );
             });
             it("should reject sums less than the sum of included numbers", () => {
                 const sum = 4, include = [2, 3];
-                try {
-                    new Group(locations, sum, include);
-                    assert.isTrue(false, "Didn't reject invalid input");
-                } catch (e) {
-                    if (e instanceof InvalidInputError) {
-                        assert.isTrue(true);
-                    } else throw e;
-                }
+                assert.throws(() => new Group(locations, sum, include), InvalidInputError);
             });
         });
         describe("iteration", () => {

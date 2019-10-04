@@ -16,14 +16,7 @@ module.exports = assert => {
                 assert.equal(Math.sqrt(oneThroughNine.length), new SumdokuBoard(oneThroughNine).size);
             });
             it("should reject non-square boards", () => {
-                try {
-                    new SumdokuBoard(new Array(2));
-                    assert.isTrue(false, "Didn't throw InvalidInputError");
-                } catch (e) {
-                    if (e instanceof InvalidInputError)
-                        assert.isTrue(true);
-                    else throw e;
-                }
+                assert.throws(() => new SumdokuBoard(new Array(2)), InvalidInputError);
             });
             it("should optionally accept groups", () => {
                 assert.deepEqual([], new SumdokuBoard(Array(0)).groups);
@@ -38,23 +31,9 @@ module.exports = assert => {
             });
             it("should reject attempts to grab off-board information", () => {
                 // Invalid row, negative
-                try {
-                    board.get([-1, 0]);
-                    assert.isTrue(false, "Didn't throw InvalidInputError");
-                } catch (e) {
-                    if (e instanceof InvalidInputError)
-                        assert.isTrue(true);
-                    else throw e;
-                }
+                assert.throws(() => board.get([-1, 0]), InvalidInputError);
                 // Invalid col, between size and length of array
-                try {
-                    board.get([0, 4]);
-                    assert.isTrue(false, "Didn't throw InvalidInputError");
-                } catch (e) {
-                    if (e instanceof InvalidInputError)
-                        assert.isTrue(true);
-                    else throw e;
-                }
+                assert.throws(() => board.get([0, 4]), InvalidInputError);
             });
         });
         describe("set", () => {
@@ -76,23 +55,9 @@ module.exports = assert => {
             });
             it("should reject attempts to grab off-board information", () => {
                 // Invalid row, negative
-                try {
-                    board.set([-1, 0], setTo);
-                    assert.isTrue(false, "Didn't throw InvalidInputError");
-                } catch (e) {
-                    if (e instanceof InvalidInputError)
-                        assert.isTrue(true);
-                    else throw e;
-                }
+                assert.throws(() => board.set([-1, 0]), InvalidInputError);
                 // Invalid col, between size and length of array
-                try {
-                    board.set([0, 4], setTo);
-                    assert.isTrue(false, "Didn't throw InvalidInputError");
-                } catch (e) {
-                    if (e instanceof InvalidInputError)
-                        assert.isTrue(true);
-                    else throw e;
-                }
+                assert.throws(() => board.set([0, 4]), InvalidInputError);
             });
             */
         });
@@ -115,37 +80,11 @@ module.exports = assert => {
             });
             it("should reject iteration over nonexistant rows or columns", () => {
                 // Row
-                try {
-                    board.row(-1);
-                    assert.isTrue(false, "Didn't throw InvalidInputError");
-                } catch (e) {
-                    if (e instanceof InvalidInputError)
-                        try {
-                            board.row(4);
-                            assert.isTrue(false, "Didn't throw InvalidInputError");
-                        } catch (e) {
-                            if (e instanceof InvalidInputError)
-                                assert.isTrue(true);
-                            else throw e;
-                        }
-                    else throw e;
-                }
+                assert.throws(() => board.row(-1), InvalidInputError);
+                assert.throws(() => board.row(4), InvalidInputError);
                 // Column
-                try {
-                    board.col(-1);
-                    assert.isTrue(false, "Didn't throw InvalidInputError");
-                } catch (e) {
-                    if (e instanceof InvalidInputError)
-                        try {
-                            board.col(4);
-                            assert.isTrue(false, "Didn't throw InvalidInputError");
-                        } catch (e) {
-                            if (e instanceof InvalidInputError)
-                                assert.isTrue(true);
-                            else throw e;
-                        }
-                    else throw e;
-                }
+                assert.throws(() => board.col(-1), InvalidInputError);
+                assert.throws(() => board.col(4), InvalidInputError);
             });
         });
         describe("newBoard", () => {
@@ -175,13 +114,8 @@ module.exports = assert => {
                 const firstGroup = board.groups[9 + 9];
                 let index = 0;
                 for(let location of firstGroup) {
-                    try {
-                        assert.deepEqual(threeByThree[index], location);
-                        index++;
-                    } catch (e) {
-                        console.log(firstGroup);
-                        throw e;
-                    }
+                    assert.deepEqual(threeByThree[index], location);
+                    index++;
                 }
             });
         });
