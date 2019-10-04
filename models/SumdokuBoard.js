@@ -2,13 +2,13 @@ const InvalidInputError = require('./InvalidInputError');
 const Group = require('./Group');
 
 class SumdokuBoard {
-    constructor(array) {
+    constructor(array, groups) {
         this.board = array.map(e => e);
         this.size = Math.sqrt(this.board.length);
         if (!Number.isInteger(this.size))
             throw new InvalidInputError("Not a square board");
         // Set up the basic groups all sudoku games share
-        this.groups = [];
+        this.groups = groups || [];
         this.possibilities = [];
         for(let register = 0; register < this.size; register++) {
             this.possibilities.push(register);

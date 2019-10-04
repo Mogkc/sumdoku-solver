@@ -25,6 +25,10 @@ module.exports = assert => {
                     else throw e;
                 }
             });
+            it("should optionally accept groups", () => {
+                assert.deepEqual([], new SumdokuBoard(Array(0)).groups);
+                assert.equal("Groups", new SumdokuBoard(Array(0), "Groups").groups);
+            });
         });
         describe("get", () => {
             const board = new SumdokuBoard(oneThroughNine);
