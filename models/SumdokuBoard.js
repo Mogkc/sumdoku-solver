@@ -1,5 +1,5 @@
 const InvalidInputError = require('./InvalidInputError');
-const Group = require('./Group').Group;
+const Group = require('./Group');
 
 class SumdokuBoard {
     constructor(array) {

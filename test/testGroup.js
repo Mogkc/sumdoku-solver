@@ -1,4 +1,4 @@
-const Group = require("../models/Group").Group;
+const Group = require("../models/Group");
 const InvalidInputError = require('../models/InvalidInputError');
 
 

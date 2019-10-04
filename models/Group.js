@@ -42,4 +42,4 @@ class Group {
     }
 }
 
-module.exports["Group"] = Group;
+module.exports = Group;
