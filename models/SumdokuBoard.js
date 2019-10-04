@@ -37,7 +37,15 @@ class SumdokuBoard {
         return this.board[this._flatten(row, col)];
     }
     set(...location_valuePairs) {
-        return new SumdokuBoard(this.board, this.groups);
+        if(0 != location_valuePairs.length % 2) throw new InvalidInputError("Locations and values not paired");
+        const changed = this.board.map(e => e), iterator = location_valuePairs[Symbol.iterator]();
+        while(true) {
+            const {value: location, done} = iterator.next();
+            if(done) break;
+            const {value} = iterator.next();
+            changed[this._flatten(location[0], location[1])] = value;
+        }
+        return new SumdokuBoard(changed, this.groups);
     }
     row(row) {
         if (this._notInSize(row))

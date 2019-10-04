@@ -38,7 +38,7 @@ module.exports = assert => {
         });
         describe("set", () => {
             const board = new SumdokuBoard(oneThroughNine);
-            const setTo = 9;
+            const setTo = 22; // Obviously not one oneThroughNine
             it("should return a new board without changing the original", () => {
                 assert.equal(board.get([2, 1]), 8);
                 const afterSet = board.set([2, 1], setTo);
@@ -46,20 +46,23 @@ module.exports = assert => {
                 assert.isTrue(board != afterSet);
                 assert.equal(board.get([2, 1]), 8);
             });
-            /*
-            it("should take one or more location-value pairs", () => {
-                board.set([0, 0], setTo);
-                assert.equal(setTo, board.get([0, 0]));
-                // Or more
-                board.set([0, 1], setTo, [1, 0], setTo)
-            });
             it("should reject attempts to grab off-board information", () => {
                 // Invalid row, negative
                 assert.throws(() => board.set([-1, 0]), InvalidInputError);
                 // Invalid col, between size and length of array
                 assert.throws(() => board.set([0, 4]), InvalidInputError);
             });
-            */
+            it("should reject unpaired input", () => {
+                assert.throws(() => board.set([0, 0]), InvalidInputError);
+            });
+            it("should work with one or more location-value pairs", () => {
+                const singleChange = board.set([0, 0], setTo);
+                assert.equal(setTo, singleChange.get([0, 0]));
+                // Or more
+                const twoChanges = board.set([0, 1], setTo, [1, 0], setTo);
+                assert.equal(setTo, twoChanges.get([0, 1]));
+                assert.equal(setTo, twoChanges.get([1, 0]));
+            });
         });
         describe("iteration", () => {
             const board = new SumdokuBoard(oneThroughNine);
