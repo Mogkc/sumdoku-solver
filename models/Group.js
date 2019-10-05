@@ -5,7 +5,7 @@ function isLocations(input) {
     if (typeof input[Symbol.iterator] !== "function") return false;
     for (let elem of input) {
         if (elem.length != 2) return false;
-        if (!Number.isInteger(elem[0]) || !Number.isInteger(elem[0]))
+        if (!Number.isInteger(elem[0]) || !Number.isInteger(elem[1]))
             return false;
     }
     return true;
@@ -39,6 +39,13 @@ class Group {
         for(let point of this.locations) {
             yield point;
         }
+    }
+    has([row, col]) {
+        for(let location of this) {
+            if(location[0] == row && location[1] == col)
+                return true;
+        }
+        return false;
     }
 }
 

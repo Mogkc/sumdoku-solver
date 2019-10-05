@@ -59,5 +59,14 @@ module.exports = function (assert) {
                 assert.deepEqual(l3, iterator.next().value);
             });
         });
+        describe("has", () => {
+            const location = [4, 1]
+            it("should return whether a location is in the group", () => {
+                const zeroes = new Group([[0, 0]]);
+                assert.isTrue(!zeroes.has([4, 1]), "Returned true falsely");
+                const hasLocation = new Group([[0, 0], location]);
+                assert.isTrue(hasLocation.has(location));
+            });
+        });
     });
 }
