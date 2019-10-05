@@ -67,5 +67,11 @@ describe("solver", () => {
                 solverPossibilities = countPossibilities(solver(solvable, changed).board);
             assert.isBelow(solverPossibilities, solvablePossibilities);
         });
+        describe("updateLocationsThatShareGroup", () => {
+            it("takes a board state and a location, returns a list of changes", () => {
+                const changes = updateLocationsThatShareGroup(solvable, location_value_pairs[0]);
+                assert.doesNotThrow(() => SumdokuBoard.newBoard().set(...changes));
+            });
+        });
     });
 });
