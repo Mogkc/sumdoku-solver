@@ -7,35 +7,34 @@ module.exports["solver"] = function (boardState, changed) {
     const iterator = changed[Symbol.iterator]()
     let next = iterator.next(), changesPrepped = [];
     while(changesPrepped.length < 1 && !next.done) {
-        changesPrepped = changesPrepped.concat(updateLocationsThatShareGroup(boardState, next.value));
+        changesPrepped = changesPrepped.concat(propogateChange(boardState, next.value));
+        changed.delete(next.value);
         next = iterator.next();
     }
     return boardState.set(...changesPrepped);
 }
 
-function updateLocationsThatShareGroup(boardState, location) {
+function propogateChange(boardState, location) {
     const groupsIn = boardState.groups.filter(e => e.has(location));
     let value = boardState.get(location);
     // To start with, we're only going to make changes
     // based off of 100% sure locations
-    if(value.length > 1)
-        return [];
-    value = value[0];
+    if(value.length == 1)
+        return removeValueFromGroups(boardState, groupsIn, value[0]);
+}
+
+function removeValueFromGroups(boardState, groups, toRemove) {
     const proposedChanges = [];
-    for(let group of groupsIn) {
+    for(let group of groups) {
         for(let point of group) {
-            if(point[0] == location[0] && point[1] == location[1]) {
+            const value = boardState.get(point);
+            if(value.length == 1 || value.indexOf(toRemove) == -1)
                 continue;
-            }
-            const valueAt = boardState.get(point);
-            if(valueAt.indexOf(value) == -1)
-                continue;
-            // Here we get to remove the value from the point
             proposedChanges.push(point);
-            proposedChanges.push(valueAt.filter(n => n != value));
+            proposedChanges.push(value.filter(n => n != toRemove));
         }
     }
     return proposedChanges;
 }
 
-module.exports["updateLocationsThatShareGroup"] = updateLocationsThatShareGroup;
+module.exports["updateLocationsThatShareGroup"] = propogateChange;
