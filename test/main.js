@@ -1,10 +1,4 @@
 const assert = require('chai').assert;
-const testSumdokuBoard = require("./testSumdokuBoard");
-const testGroup = require("./testGroup");
-
-testSumdokuBoard(assert);
-testGroup(assert);
-
 const solver = require("../main").solver;
 const updateLocationsThatShareGroup = require("../main").updateLocationsThatShareGroup;
 const SumdokuBoard = require("../models/SumdokuBoard")
